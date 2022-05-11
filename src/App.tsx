@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import { AuthProvider } from './context/authContext';
 import Login from './Pages/Login';
 import Register from './Pages/Register';
 
@@ -7,7 +8,9 @@ import Register from './Pages/Register';
 function App() {
   return (
     <div className="App">
-      <Login></Login>
+      <AuthProvider>
+          <Login></Login>
+      </AuthProvider>
     </div>
   );
 }

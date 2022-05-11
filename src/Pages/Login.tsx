@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { loginUser } from '../services/UserService';
 import Alert from 'react-bootstrap/Alert';
+import { useAuthDispach, useAuthState } from '../context/authContext';
 
 const Login = ()  => {
 
@@ -15,6 +16,8 @@ const Login = ()  => {
     const [password , setPassword ] = useState("");
     const [error,  setError ] = useState("");
     const [sendingData, setSendingData] = useState(false);
+
+    const authDispatch = useAuthDispach();
 
     const login = async (e : React.SyntheticEvent) => {
         e.preventDefault();
@@ -24,7 +27,10 @@ const Login = ()  => {
             console.log(email+password);
             const res  = await loginUser(email,password);
             const token = res.data.token;
-            console.log(token);
+            authDispatch({
+                type: "login",
+                token    
+            })
             setSendingData(false);
         }catch(errors : any){
 

@@ -5,8 +5,9 @@ import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
-import { registerUser } from '../services/UserService';
+import { loginUser, registerUser } from '../services/UserService';
 import { Spinner } from 'react-bootstrap';
+import { useAuthDispach } from '../context/authContext';
 
 
 const Register = ()  => {
@@ -17,12 +18,19 @@ const Register = ()  => {
     const [errors,  setErrors ] = useState<any>({});
     const [sendingData, setSendingData] = useState(false);
 
+    const authDispatch = useAuthDispach();
+
     const register = async (e : React.SyntheticEvent) => {
         e.preventDefault();
         try{
             setSendingData(true);
             await registerUser(name,email,password); 
-            //redireccionar el usuario al panel
+            const res  = await loginUser(email,password);
+            const token = res.data.token;
+            authDispatch({
+                type: "login",
+                token    
+            })
             setSendingData(false);
         }catch(errors : any){
             setErrors(errors.response.data.errors);
