@@ -31,7 +31,6 @@ const Register = ()  => {
                 type: "login",
                 token    
             })
-            setSendingData(false);
         }catch(errors : any){
             setErrors(errors.response.data.errors);
             setSendingData(false);

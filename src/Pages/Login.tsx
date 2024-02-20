@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { loginUser } from '../services/UserService';
 import Alert from 'react-bootstrap/Alert';
-import { useAuthDispach, useAuthState } from '../context/authContext';
+import { useAuthDispach } from '../context/authContext';
 
 const Login = ()  => {
 

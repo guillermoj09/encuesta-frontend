@@ -1,15 +1,28 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
 import { AuthProvider } from './context/authContext';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
+import routes from './Router/routes';
+import AppRoute from './Router/AppRoute';
+import { BrowserRouter as Router, Switch } from "react-router-dom";
+import Navigation from './Components/Navigation';
 
 
 function App() {
   return (
     <div className="App">
       <AuthProvider>
-          <Login></Login>
+      <Router>
+        <Navigation></Navigation>
+        <Switch>
+          {
+            routes.map(route => <AppRoute 
+              component={route.component}
+              path={route.path}
+              routeType={route.routeType}
+              key={route.path}
+              exact
+            ></AppRoute>)
+          }
+        </Switch>
+      </Router>
       </AuthProvider>
     </div>
   );
